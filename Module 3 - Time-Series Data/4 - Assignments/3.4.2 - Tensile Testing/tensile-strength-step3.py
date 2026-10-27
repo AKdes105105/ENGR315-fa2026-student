@@ -65,6 +65,25 @@ def calculate_stress(force, sample_diameter):
     return None
 
 
+def calculate_stress(force, sample_diameter):
+    """
+    Calculate the stress (MPa) experienced by the test given a series of forces/loads (kN) and
+    a sample diameter (mm)
+    :param force: An array of forces/loads applied to the sample in Kilo Newtons (kN)
+    :param sample_diameter: The diameter of the sample in millimeters (mm)
+    :return: An array of stresses experienced by the sample in MegaPascals (MPa)
+    """
+
+ # calculate the cross-section area (mm^2)
+    cross_section_area = (math.pi * sample_diameter ** 2)/4
+
+    # calculate stress (MPa) from load (kN) and cross-sectional area
+    # delete this line and replace it with your own
+    stress = (force * 1000) / sample_diameter 
+
+    return stress
+
+
 def calculate_max_strength_strain(strain, stress):
     """
     Calculate the Ultimate Tensile Stress and Fracture Strain
@@ -75,9 +94,13 @@ def calculate_max_strength_strain(strain, stress):
     Fracture Strain: the maximum strain experienced before fracture
     """
 
-    ### YOUR SOLUTION FROM STEP 2 TEMPLATE HERE ###
+    # calculate the maximum stress experienced
+    ultimate_tensile_stress = max(stress)
 
-    return -1, -1
+    # calculate the maximum strain experienced
+    fracture_strain = max(strain)
+
+    return ultimate_tensile_stress, fracture_strain
 
 def calculate_elastic_modulus(strain, stress):
     """
@@ -100,32 +123,33 @@ def calculate_elastic_modulus(strain, stress):
     # use from 0 to that value to create a linear plot
 
     ### your code below ###
-    secant_strain = -1
+
+    secant_strain = 0.4 * max(stress)
 
     # Step 3b: find the intersection between 40% line and the curvey
     # take the abs() difference between the stress vector and secant_strain point
 
     ### your code below ###
-    diffs = -1
+    diffs = abs(stress-secant_strain)
 
     # use np.argmin() to find the minimum of the diffs array.
     # this will be the INDEX of the point in stress-strain that is closest to
     # secant_strain intersection
 
     # uncomment the line below and replace with your own
-    # linear_index = ....
+    linear_index = np.argmin(diffs)
 
     # Step 3c: down select to linear region for stress and strain
     # using list slicing. Uncomment lines below
-    # linear_stress = stress[# list slice#]
-    # linear_strain = strain[#list slice#]
+    linear_stress = stress[:linear_index + 1]
+    linear_strain = strain[:linear_index + 1]
 
     # Step 3d: find least squares fit to a line in the linear region
     # use 1-degree polynominal fit (line) from np.polyfit
     # save the slope and intercept so we can plot the line later
 
     # uncomment the line below and call np.polyfit
-    # slope, intercept = ....
+    slope, intercept = np.polyfit(linear_stress,linear_strain, 1)
 
     return linear_index, slope, intercept
 

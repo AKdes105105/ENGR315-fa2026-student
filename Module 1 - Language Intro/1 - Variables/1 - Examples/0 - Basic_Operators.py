@@ -12,7 +12,7 @@ print(12 / 5)
 print(10 % 3)
 
 # It can even divide to the integer, leaving no remainders
-print(10 // 3)
+print(10 // 3.2)
 
 # We can also raise things to a power
 print(5 ** 2)

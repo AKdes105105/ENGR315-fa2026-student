@@ -13,11 +13,12 @@ while a != 5:
 
 # first, we're going to write the condition of a while loop
 # this loop is going to multiply the variable x by 2 3 times
-b = 5
-x = 0
-while x != 0:
-    b = b * 2
-    x = x + 1
+b = 0
+x = 5
+while x < 3:
+    b  += 1
+    x = x *  2
+    print("b is now ", b ," and x is now ", x)
 
 # now, try and write the body of a while loop that should add a variable to itself 5 times
 # when writing the code delete "break" - this is to prevent an infinite loop

@@ -1,0 +1,22 @@
+import numpy
+
+some_array = numpy.array([[11,12,13],[21,22,23], [31,32,33]])
+
+print(some_array)
+
+print(some_array[1,1])
+
+print(some_array[:,2])
+
+print(some_array[0, :2])
+
+print(some_array[1:, :2])
+
+print(some_array[1:, :2])
+
+
+
+
+
+
+

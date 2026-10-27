@@ -9,7 +9,7 @@ balance = 1000
 rate = 0.01
 
 # years to compound interest
-years = 10
+years = 12
 
 counter=0
 while counter<years:

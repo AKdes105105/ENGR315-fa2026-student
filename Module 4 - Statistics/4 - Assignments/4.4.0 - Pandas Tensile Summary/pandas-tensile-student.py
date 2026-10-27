@@ -25,9 +25,9 @@ def load_tensile_data(_path: str):
     :return: A DataFrame with one row per sample
     """
 
-    # YOUR CODE HERE #
+    DataFrame = pd.read_csv(_path)
 
-    return None
+    return DataFrame
 
 
 def select_material(_df, _material: str):
@@ -37,10 +37,10 @@ def select_material(_df, _material: str):
     :param _material: Material to keep, as it appears in the Material_Type column (e.g. 'PMMA')
     :return: A DataFrame that only contains the rows for that material. All columns are kept.
     """
+    selected_mat = _df[_df['Material_Type'] == _material]
+    
 
-    # YOUR CODE HERE #
-
-    return None
+    return selected_mat
 
 
 def select_strong(_df, _material: str, _min_yield: float):
@@ -52,10 +52,9 @@ def select_strong(_df, _material: str, _min_yield: float):
     :param _min_yield: Minimum yield strength. Samples exactly equal to this value are not kept
     :return: A DataFrame with the rows that meet both conditions. All columns are kept.
     """
-
-    # YOUR CODE HERE #
-
-    return None
+    selected_strong = _df[(_df['Material_Type'] == _material) & (_df['Yield_Strength']> _min_yield)]
+    
+    return selected_strong
 
 
 def get_values(_df, _material: str, _column: str):
@@ -67,9 +66,10 @@ def get_values(_df, _material: str, _column: str):
     :return: A Numpy array (not a Pandas Series) of the values, in the same order as the DataFrame
     """
 
-    # YOUR CODE HERE #
+    selected_mat = _df[_df['Material_Type'] == _material]
+    value = selected_mat[_column].to_numpy()
 
-    return None
+    return value
 
 
 def material_statistics(_df, _material: str, _column: str):
@@ -81,10 +81,12 @@ def material_statistics(_df, _material: str, _column: str):
     :param _column: Name of the column to analyze (e.g. 'Yield_Strength')
     :return: A tuple of (mean, standard deviation)
     """
+    selected_mat = _df[_df['Material_Type'] == _material]
 
-    # YOUR CODE HERE #
+    average = selected_mat[_column].mean()
+    std =  selected_mat[_column].std()
 
-    return None
+    return (average, std)
 
 
 def summary_table(_df, _columns: list):
@@ -97,10 +99,24 @@ def summary_table(_df, _columns: list):
              column name, and the value is a tuple of (mean, standard deviation). For example:
              {'PMMA': {'Elastic_Modulus': (3.09, 0.2), 'Yield_Strength': (49.41, 3.04)}, ...}
     """
+    materials = _df['Material_Type'].unique()
+    materials = materials.tolist()
 
-    # YOUR CODE HERE #
+    summary = {}
 
-    return None
+    for material in materials:
+        selected_mat = _df[_df['Material_Type'] == material]
+        mat_results = {}
+
+        for column in _columns:
+            average = selected_mat[column].mean()
+            std = selected_mat[column].std()
+            mat_results[column] = (average, std)
+
+        summary[material] = mat_results
+
+
+    return summary
 
 
 if __name__ == '__main__':

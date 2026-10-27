@@ -7,7 +7,8 @@ max_value = max(my_list)
 min_value = min(my_list)
 length = len(my_list)
 
+
 # use the print built-in function
 print("Max is ", max_value,
       "Min is ", min_value,
-      "Length is ", length)
+      "Length is ", length

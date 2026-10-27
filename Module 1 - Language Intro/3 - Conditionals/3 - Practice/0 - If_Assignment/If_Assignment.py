@@ -6,7 +6,7 @@
 # Case #1:
 
 age_one = 22
-age_two = 18
+age_two = 23
 
 if age_one > 21 and age_two > 21:
     result = "Option One"

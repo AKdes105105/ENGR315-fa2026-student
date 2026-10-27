@@ -28,4 +28,11 @@ nums = generate_random_int_list(max_length, upper_bound)
 num_evens = 0
 num_odds = 0
 
-### YOUR CODE BEGINS HERE ###
+for x in nums:
+    if x % 2 == 0:
+        num_evens += 1
+    else:
+        num_odds += 1
+
+print("The number of evens is: " + str(num_evens))
+print("The number of odds is: " + str(num_odds))

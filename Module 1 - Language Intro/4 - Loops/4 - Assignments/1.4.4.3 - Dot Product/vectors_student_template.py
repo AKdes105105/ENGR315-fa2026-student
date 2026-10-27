@@ -29,6 +29,9 @@ dot_product = 0
 
 ### Your code here
 
+for x in range(fixed_length):
+    dot_product += vector_a[x] * vector_b[x]
+
 """
 Step 3: Calculate the error of your dot_product compared with numpy's solution
 """

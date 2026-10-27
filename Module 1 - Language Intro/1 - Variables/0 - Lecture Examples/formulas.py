@@ -1,6 +1,6 @@
 principal = 1000  # initial amount to be deposited
 rate = 1  # interest rate applied to deposit (will be divided by 100)
-n = 10  # number of years to compound deposit
+n = 20  # number of years to compound deposit
 
 # use an over-loaded form of print() to set out each element of the string
 print("Initial principal is $", principal)

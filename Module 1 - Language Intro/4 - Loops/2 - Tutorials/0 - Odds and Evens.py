@@ -14,9 +14,16 @@ one_odds = 0
 # Hint: use if/else statements to set conditions in
 # the For Loop to determine even or odd.
 
+
 # Fill in this loop:
 for element in list_one:
-    dummy = None
+    if element % 2 == 0:
+        one_evens += 1
+    elif element % 2 == 1:
+        one_odds +=1
+    else:
+       print("someting wong")
+
 
 # These statements can be used to check your work!
 print("The number of odds in list_one is: " + str(one_odds))
