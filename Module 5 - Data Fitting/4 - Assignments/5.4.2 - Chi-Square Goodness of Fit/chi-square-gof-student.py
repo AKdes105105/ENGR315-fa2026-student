@@ -24,11 +24,8 @@ def categorical_test(_observed, _expected, _alpha):
     """
 
     # Hint: use chisquare() as in the lecture example, then compare the p-value with _alpha
-    chi_stat = None
-    p_value = None
-    reject = None
-
-    # YOUR CODE HERE #
+    chi_stat, p_value = chisquare(f_obs=_observed, f_exp=_expected)
+    reject = p_value < _alpha
 
     return chi_stat, p_value, reject
 
@@ -44,9 +41,12 @@ def expected_normal_counts(_bins, _mu, _std, _num_samples):
     """
 
     # Hint: the CDF difference between bin edges gives the probability of a value being within each bin
-    expected_counts = None
+    
+    
+    expected_prob = np.diff(norm.cdf(_bins, loc=_mu, scale=_std))
+    expected_counts = expected_prob * _num_samples
 
-    # YOUR CODE HERE #
+   
 
     return expected_counts
 
@@ -65,11 +65,19 @@ def normal_fit_test(_samples, _alpha):
     # Step 3: bin the samples with np.histogram() to get the observed counts
     # Step 4: get the expected counts with your expected_normal_counts()
     # Step 5: run chisquare() with ddof=2, because the mean and standard deviation were estimated from the samples
-    chi_stat = None
-    p_value = None
-    reject = None
+    
+    fitted_mean, fitted_std = norm.fit(_samples)
 
-    # YOUR CODE HERE #
+    bins = np.linspace((fitted_mean - 2 * fitted_std),(fitted_mean + 2 * fitted_std), 9)
+    bins = np.r_[ -np.inf, bins, np.inf ]
+
+    observed_counts, observed_edges = np.histogram(_samples, bins=bins, density = False)
+
+    expected_counts = expected_normal_counts(bins, fitted_mean, fitted_std, len(_samples))
+
+    chi_stat, p_value = chisquare(f_obs=observed_counts, f_exp=expected_counts, ddof=2)
+
+    reject = p_value < _alpha
 
     return chi_stat, p_value, reject
 
